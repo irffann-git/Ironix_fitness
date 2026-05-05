@@ -1,0 +1,107 @@
+/* ===== PASSWORD STRENGTH STYLES ===== */
+.auth-strength-wrap {
+  margin-top: 8px;
+}
+
+.auth-strength-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.auth-error-message {
+  background: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  text-align: center;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.auth-strength-seg {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  transition: var(--auth-transition);
+}
+
+.auth-strength-seg.auth-filled {
+  background: #e74c3c;
+}
+
+/* Strength level colors */
+.auth-strength-weak .auth-strength-seg.auth-filled {
+  background: #e74c3c;
+}
+
+.auth-strength-fair .auth-strength-seg.auth-filled {
+  background: #f39c12;
+}
+
+.auth-strength-good .auth-strength-seg.auth-filled {
+  background: #3498db;
+}
+
+.auth-strength-strong .auth-strength-seg.auth-filled {
+  background: #2ecc71;
+}
+
+.auth-strength-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  transition: var(--auth-transition);
+}
+
+.auth-strength-label.auth-strength-weak {
+  color: #e74c3c;
+}
+
+.auth-strength-label.auth-strength-fair {
+  color: #f39c12;
+}
+
+.auth-strength-label.auth-strength-good {
+  color: #3498db;
+}
+
+.auth-strength-label.auth-strength-strong {
+  color: #2ecc71;
+}
+
+/* ===== PASSWORD MATCH STYLES ===== */
+.auth-match-hint {
+  font-size: 0.7rem;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.auth-match-hint.auth-match-ok {
+  color: #2ecc71;
+}
+
+.auth-match-hint.auth-match-fail {
+  color: #e74c3c;
+}
+
+/* ===== RESPONSIVE ADJUSTMENTS FOR SIGNUP ===== */
+@media (max-width: 480px) {
+  .auth-strength-bar {
+    gap: 4px;
+  }
+  
+  .auth-strength-seg {
+    height: 3px;
+  }
+  
+  .auth-strength-label {
+    font-size: 0.65rem;
+  }
+  
+  .auth-match-hint {
+    font-size: 0.65rem;
+  }
+}
