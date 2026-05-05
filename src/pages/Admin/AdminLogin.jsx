@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./AdminDashboard.css";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+const API_BASE = import.meta.env.VITE_API_URL;
 
 function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -15,7 +15,7 @@ function AdminLogin() {
     setError("");
 
     try {
-      const res = await fetch(`${API_BASE}/admin/auth/login`, {  // <-- changed
+      const res = await fetch(`${API_BASE}/api/admin/auth/login`, {  // <-- changed
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

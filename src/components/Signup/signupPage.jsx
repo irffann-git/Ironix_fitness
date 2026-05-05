@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import "./signup.css";
 import axios from "axios";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+const API_BASE = import.meta.env.VITE_API_URL;
 
 function SignUpPage() {
   const [name, setName] = useState("");
@@ -44,7 +44,7 @@ function SignUpPage() {
     setLoading(true);
 
     try {
-      const res = await axios.post(`${API_BASE}/auth/register`, {
+      const res = await axios.post(`${API_BASE}/api/auth/register`, {
         name,
         email,
         password,

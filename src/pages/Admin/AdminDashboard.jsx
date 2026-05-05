@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import "./AdminDashboard.css";
 
+const API = import.meta.env.VITE_API_URL;
+
 function AdminDashboard() {
   const [stats, setStats] = useState(null);
   const [users, setUsers] = useState([]);
@@ -23,10 +25,10 @@ function AdminDashboard() {
     try {
       const headers = { "Authorization": `Bearer ${token}` };
       const [statsRes, usersRes, bookingsRes, contactsRes] = await Promise.all([
-        fetch("http://localhost:4000/api/admin/stats", { headers }).then(r => r.json()),
-        fetch("http://localhost:4000/api/admin/users", { headers }).then(r => r.json()),
-        fetch("http://localhost:4000/api/admin/bookings", { headers }).then(r => r.json()),
-        fetch("http://localhost:4000/api/admin/contacts", { headers }).then(r => r.json()),
+        fetch(`${API}/api/admin/stats`, { headers }).then(r => r.json()),
+  fetch(`${API}/api/admin/users`, { headers }).then(r => r.json()),
+  fetch(`${API}/api/admin/bookings`, { headers }).then(r => r.json()),
+  fetch(`${API}/api/admin/contacts`, { headers }).then(r => r.json()),
       ]);
       if (statsRes.success) setStats(statsRes.stats);
       if (usersRes.success) setUsers(usersRes.users);
@@ -41,7 +43,7 @@ function AdminDashboard() {
 
   const updateBookingStatus = async (id, status) => {
     try {
-      await fetch(`http://localhost:4000/api/admin/bookings/${id}/status`, {
+      await fetch(`${API}/api/admin/bookings/${id}/status`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify({ status }),
@@ -52,7 +54,7 @@ function AdminDashboard() {
 
   const updateContactStatus = async (id, status) => {
     try {
-      await fetch(`http://localhost:4000/api/admin/contacts/${id}/status`, {
+      await fetch(`${API}/api/admin/contacts/${id}/status`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify({ status }),
@@ -63,7 +65,7 @@ function AdminDashboard() {
 
   const deleteUser = async (id) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
-      await fetch(`http://localhost:4000/api/admin/users/${id}`, { 
+      await fetch(`${API}/api/admin/users/${id}`, { 
         method: "DELETE", 
         headers: { "Authorization": `Bearer ${token}` } 
       });
@@ -73,7 +75,7 @@ function AdminDashboard() {
 
   const deleteBooking = async (id) => {
     if (window.confirm("Are you sure you want to delete this booking?")) {
-      await fetch(`http://localhost:4000/api/admin/bookings/${id}`, { 
+      await fetch(`${API}/api/admin/bookings/${id}`, { 
         method: "DELETE", 
         headers: { "Authorization": `Bearer ${token}` } 
       });

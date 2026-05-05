@@ -27,9 +27,6 @@ function NotFound() {
             <Link to="/classes">
               <i className="fas fa-chevron-right"></i> Our Classes
             </Link>
-            <Link to="/pricing">
-              <i className="fas fa-chevron-right"></i> Membership Plans
-            </Link>
             <Link to="/trainers">
               <i className="fas fa-chevron-right"></i> Meet Trainers
             </Link>

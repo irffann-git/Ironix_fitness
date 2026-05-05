@@ -3,7 +3,7 @@ import axios from "axios";
 import "./ContactPage.css";
 
 // Use environment variable for API base URL
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+const API_BASE = import.meta.env.VITE_API_URL;
 
 function ContactPage() {
   const [formData, setFormData] = useState({
@@ -38,7 +38,7 @@ function ContactPage() {
 
     try {
       const response = await axios.post(
-        `${API_BASE}/contact/submit`,
+        `${API_BASE}/api/contact/submit`,
         formData
       );
 

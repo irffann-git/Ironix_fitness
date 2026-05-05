@@ -1,4 +1,6 @@
+// src/context/AuthContext.jsx
 import { createContext, useState, useContext, useEffect } from "react";
+import axios from "axios";
 
 const AuthContext = createContext();
 
@@ -6,17 +8,45 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isAuthLoading, setIsAuthLoading] = useState(true); // renamed for clarity
 
   useEffect(() => {
-    // Load user from localStorage on app start
     const token = localStorage.getItem("token");
     const storedUser = localStorage.getItem("user");
-    
-    if (token && storedUser) {
-      setUser(JSON.parse(storedUser));
+
+    // If no token, we're done loading
+    if (!token) {
+      setIsAuthLoading(false);
+      return;
     }
-    setLoading(false);
+
+    // Validate the token with the backend
+    axios
+      .get("http://localhost:4000/api/auth/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        if (response.data.success) {
+          // Token is valid – update user state
+          setUser(response.data.user);
+          // Also sync localStorage (optional, but good)
+          localStorage.setItem("user", JSON.stringify(response.data.user));
+        } else {
+          // Token invalid – clear storage
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          setUser(null);
+        }
+      })
+      .catch((error) => {
+        console.error("Token validation failed:", error);
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        setUser(null);
+      })
+      .finally(() => {
+        setIsAuthLoading(false); // loading finished in all cases
+      });
   }, []);
 
   const login = (userData, token) => {
@@ -37,7 +67,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, updateUser }}>
+    <AuthContext.Provider
+      value={{ user, isAuthLoading, login, logout, updateUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

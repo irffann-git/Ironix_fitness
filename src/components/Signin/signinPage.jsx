@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import "./signin.css";
 import axios from "axios";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+const API_BASE = import.meta.env.VITE_API_URL;
 
 function SignInPage() {
   const [email, setEmail] = useState("");
@@ -23,7 +23,7 @@ function SignInPage() {
     setError("");
 
     try {
-      const res = await axios.post(`${API_BASE}/auth/login`, {
+      const res = await axios.post(`${API_BASE}/api/auth/login`, {
         email,
         password,
       });

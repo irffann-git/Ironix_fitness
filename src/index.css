@@ -9,3 +9,208 @@ body {
   font-optical-sizing: auto;
   background-color: #ddd;
 }
+/* ===== PROFESSIONAL OFFLINE PAGE – EARTH & BRONZE ===== */
+
+.offline-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at 10% 20%, #1f0f08, #0a0603);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated grain texture */
+.offline-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Floating animated circles */
+.offline-container::after {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(223,168,75,0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  top: -150px;
+  right: -150px;
+  animation: floatCircle 20s infinite alternate;
+}
+@keyframes floatCircle {
+  0% { transform: translate(0,0) scale(1); opacity: 0.3; }
+  100% { transform: translate(-50px, 80px) scale(1.2); opacity: 0.6; }
+}
+
+/* Card */
+.offline-card {
+  position: relative;
+  background: rgba(22, 12, 6, 0.7);
+  backdrop-filter: blur(20px);
+  border-radius: 40px;
+  padding: 48px 40px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid rgba(223,168,75,0.3);
+  box-shadow: 0 25px 45px rgba(0,0,0,0.3);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: cardGlow 4s infinite alternate;
+}
+@keyframes cardGlow {
+  0% { box-shadow: 0 25px 45px rgba(0,0,0,0.3), 0 0 0 0 rgba(223,168,75,0); }
+  100% { box-shadow: 0 25px 55px rgba(0,0,0,0.4), 0 0 0 2px rgba(223,168,75,0.2); }
+}
+
+/* Icon & Wi‑Fi animation */
+.offline-icon-wrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 24px;
+}
+.offline-wifi-icon {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  animation: wifiPulse 2s infinite;
+}
+@keyframes wifiPulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.offline-signal-dots {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  display: flex;
+  gap: 6px;
+}
+.offline-signal-dots span {
+  width: 8px;
+  height: 8px;
+  background: #DFA84B;
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: dotBlink 1.4s infinite;
+}
+.offline-signal-dots span:nth-child(2) { animation-delay: 0.2s; }
+.offline-signal-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dotBlink {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Typography */
+.offline-card h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 8px 0 12px;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #fff, #DFA84B);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.offline-card p {
+  color: #C5BCAD;
+  font-size: 1rem;
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+.offline-message-detail {
+  background: rgba(223,168,75,0.1);
+  border-radius: 60px;
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  font-size: 0.85rem;
+  color: #DFA84B;
+  backdrop-filter: blur(4px);
+}
+.offline-message-detail i {
+  font-size: 0.9rem;
+}
+
+/* Retry Button */
+.offline-retry-btn {
+  background: linear-gradient(95deg, #884919, #6B3A14);
+  border: none;
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: relative;
+  overflow: hidden;
+}
+.offline-retry-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+.offline-retry-btn:hover::before {
+  left: 100%;
+}
+.offline-retry-btn:hover {
+  background: linear-gradient(95deg, #A65D2A, #884919);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+.offline-retry-btn:active {
+  transform: translateY(2px);
+}
+.offline-retry-btn i {
+  transition: transform 0.3s;
+}
+.offline-retry-btn:hover i {
+  transform: rotate(180deg);
+}
+
+/* Responsive */
+@media (max-width: 550px) {
+  .offline-card {
+    padding: 32px 24px;
+  }
+  .offline-icon-wrapper {
+    width: 80px;
+    height: 80px;
+  }
+  .offline-wifi-icon {
+    width: 60px;
+    height: 60px;
+    top: 10px;
+    left: 10px;
+  }
+  .offline-card h2 {
+    font-size: 1.6rem;
+  }
+  .offline-retry-btn {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+}

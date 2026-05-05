@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./Navbar.css";
 
+
+const API = import.meta.env.VITE_API_URL;
+
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -71,7 +74,7 @@ function Navbar() {
       if (user.profileImage.startsWith("data:image") || user.profileImage.startsWith("http")) {
         return user.profileImage;
       }
-      return `http://localhost:4000${user.profileImage}`;
+      return `${API}${user.profileImage}`;
     }
     return "https://i.pravatar.cc/40";
   };

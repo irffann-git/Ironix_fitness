@@ -4,6 +4,9 @@ import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import "./profilePage.css";
 
+const API = import.meta.env.VITE_API_URL;
+
+
 function Profile() {
   const [user, setUser] = useState({
     name: "",
@@ -33,7 +36,7 @@ function Profile() {
       }
 
       try {
-        const res = await axios.get("http://localhost:4000/api/auth/me", {
+        const res = await axios.get(`${API}/api/auth/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.data.success) {
@@ -58,7 +61,7 @@ function Profile() {
       if (!token) return;
 
       try {
-        const res = await axios.get("http://localhost:4000/api/bookings/my-bookings", {
+        const res = await axios.get(`${API}/api/bookings/my-bookings`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.data.success) {
@@ -82,7 +85,7 @@ function Profile() {
     const token = localStorage.getItem("token");
     try {
       const res = await axios.put(
-        "http://localhost:4000/api/auth/profile",
+        `${API}/api/auth/profile`,
         {
           name: user.name,
           phone: user.phone,
@@ -111,7 +114,7 @@ function Profile() {
     
     try {
       const res = await axios.put(
-        `http://localhost:4000/api/bookings/${bookingId}/cancel`,
+        `${API}/api/bookings/${bookingId}/cancel`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -151,7 +154,7 @@ function Profile() {
         const token = localStorage.getItem("token");
         try {
           const res = await axios.put(
-            "http://localhost:4000/api/auth/profile",
+            `${API}/api/auth/profile`,
             { profileImage: base64Image },
             { headers: { Authorization: `Bearer ${token}` } }
           );
@@ -189,7 +192,11 @@ function Profile() {
       <div className="profile-card-container">
         <div className="profile-banner-section">
           <div className="profile-avatar-wrapper" onClick={handleImageClick}>
-            <img src={user.profileImage || "https://i.pravatar.cc/150"} alt="profile" />
+            <img src={
+    user.profileImage?.startsWith("http")
+      ? user.profileImage
+      : `${API}${user.profileImage}`
+  } alt="profile" />
             {editing && (
               <div className="profile-avatar-overlay">
                 <i className="fas fa-camera"></i>

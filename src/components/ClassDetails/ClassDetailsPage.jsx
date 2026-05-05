@@ -5,7 +5,7 @@ import axios from "axios";
 import "./ClassDetailsPage.css";
 
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+const API_BASE = import.meta.env.VITE_API_URL;
 
 function ClassDetailsPage() {
   const { id } = useParams();
@@ -134,7 +134,7 @@ function ClassDetailsPage() {
         
         const response = await axios({
           method: 'post',
-          url: `${API_BASE}/bookings/create`, 
+          url: `${API_BASE}/api/bookings/create`, 
           data: requestData,
           headers: {
             'Content-Type': 'application/json',
