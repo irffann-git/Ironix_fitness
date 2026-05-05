@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { trainersData, categoriesData } from "../../data/trainers_data";
+import { trainersData, categoriesData } from "../../Data/trainers_data";
 import "./TrainersPage.css";
 
 function TrainersPage() {

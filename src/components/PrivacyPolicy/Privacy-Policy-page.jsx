@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./Privacy-Policy-Page.css";
+import "./Privacy-Policy-page.css";
 
 const sections = [
   {
