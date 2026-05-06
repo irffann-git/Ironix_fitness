@@ -68,6 +68,25 @@ function PrivacyPolicyPage() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  // Scroll reveal for sections
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
+  );
+
+  const sections = document.querySelectorAll('.privacy-section');
+  sections.forEach((el) => observer.observe(el));
+
+  return () => observer.disconnect();
+}, []);
 
   return (
     <>

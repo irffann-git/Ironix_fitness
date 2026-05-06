@@ -1,5 +1,8 @@
-/* ===== EARTH & BRONZE THEME - HOMEPAGE ===== */
-/* Theme Colors: Deep Earth #160C06 | Warm Bronze #884919 | Golden Amber #DFA84B */
+/* ============================================
+   IRONIX HOMEPAGE - PURE CSS GRID (NO SWIPER)
+   Earth & Bronze Theme | Hover only on desktop
+   Scroll reveal animations | Fully responsive
+   ============================================ */
 
 :root {
   --home-primary: #884919;
@@ -36,29 +39,28 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow-x: hidden;
   background-color: var(--home-gray-100);
 }
 
-/* ===== CONTAINER ===== */
+/* Container */
 .home-container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 clamp(1rem, 5vw, 2rem);
 }
 
-/* ===== SECTION HEADER ===== */
+/* Section header */
 .home-section-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: clamp(2rem, 6vw, 4rem);
 }
 
 .home-section-title {
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(1.8rem, 6vw, 2.8rem);
   font-weight: 700;
   color: var(--home-primary);
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
   position: relative;
   display: inline-block;
 }
@@ -66,12 +68,12 @@ body {
 .home-section-title::after {
   content: '';
   position: absolute;
-  bottom: -8px;
+  bottom: -0.5rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
+  width: 60px;
   height: 3px;
-  background: var(--home-primary);
+  background: var(--home-secondary);
   border-radius: 2px;
 }
 
@@ -79,17 +81,15 @@ body {
   color: var(--home-gray-700);
   max-width: 600px;
   margin: 0 auto;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 3vw, 1rem);
 }
 
-/* ===== BUTTONS ===== */
-
-
+/* Button */
 .home-btn-outline {
   background: transparent;
   color: var(--home-secondary);
   border: 2px solid var(--home-secondary);
-  padding: 12px 132px;
+  padding: 0.75rem 2rem;
   font-size: 1rem;
   font-weight: 600;
   border-radius: var(--home-radius-md);
@@ -99,13 +99,15 @@ body {
   letter-spacing: 1px;
 }
 
-.home-btn-outline:hover {
-  background: var(--home-secondary);
-  color: var(--home-deep-dark);
-  transform: translateY(-2px);
+@media (hover: hover) and (min-width: 1025px) {
+  .home-btn-outline:hover {
+    background: var(--home-secondary);
+    color: var(--home-deep-dark);
+    transform: translateY(-2px);
+  }
 }
 
-/* ===== HERO SECTION ===== */
+/* Hero section */
 .home-hero {
   position: relative;
   height: 100vh;
@@ -128,10 +130,7 @@ body {
 
 .home-hero-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: linear-gradient(90deg, rgba(22, 12, 6, 0.715) 0%, rgba(0, 0, 0, 0.14) 100%);
   z-index: 1;
 }
@@ -140,16 +139,17 @@ body {
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: 0 20px;
+  padding: 0 1rem;
 }
 
 .home-hero-title {
-  font-size: clamp(2.5rem, 10vw, 6rem);
+  font-size: clamp(2rem, 10vw, 5rem);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 6px;
-  line-height: 1.1;
-  margin-bottom: 24px;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.8s ease;
 }
 
 .home-hero-title-line-1 {
@@ -171,40 +171,50 @@ body {
 }
 
 .home-hero-subtitle {
-  font-size: 1.25rem;
-  color: rgba(245, 240, 235, 0.8);
-  margin-bottom: 32px;
+  font-size: clamp(1rem, 4vw, 1.25rem);
+  color: rgba(245, 240, 235, 0.9);
+  margin-bottom: 2rem;
   letter-spacing: 1px;
+  animation: fadeInUp 0.8s ease 0.1s both;
 }
 
 .home-hero-buttons {
   display: flex;
-  gap: 16px;
+  gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease 0.2s both;
 }
 
-/* ===== FEATURES SECTION ===== */
+/* Features section */
 .home-features {
-  padding: 100px 0;
+  padding: clamp(3rem, 8vw, 6rem) 0;
   background: var(--home-gray-100);
 }
 
 .home-features-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
 }
 
 .home-feature-card {
   text-align: center;
-  padding: 40px 24px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
   background: var(--home-white);
   border-radius: var(--home-radius-lg);
   transition: var(--home-transition);
   border: 1px solid var(--home-gray-300);
   position: relative;
   overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s, border-color 0.3s;
+}
+
+.home-feature-card.reveal {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .home-feature-card::before {
@@ -216,17 +226,23 @@ body {
   height: 4px;
   background: var(--home-primary);
   transform: scaleX(0);
-  transition: var(--home-transition);
+  transition: transform 0.3s ease;
 }
 
-.home-feature-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--home-shadow-lg);
-  border-color: transparent;
-}
-
-.home-feature-card:hover::before {
-  transform: scaleX(1);
+@media (hover: hover) and (min-width: 1025px) {
+  .home-feature-card:hover::before {
+    transform: scaleX(1);
+  }
+  .home-feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--home-shadow-lg);
+    border-color: transparent;
+  }
+  .home-feature-card:hover .home-feature-icon {
+    background: var(--home-primary);
+    color: var(--home-white);
+    transform: scale(1.05);
+  }
 }
 
 .home-feature-icon {
@@ -237,45 +253,37 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 20px;
+  margin: 0 auto 1.2rem;
   font-size: 2rem;
   color: var(--home-primary);
-  transition: var(--home-transition);
-}
-
-.home-feature-card:hover .home-feature-icon {
-  background: var(--home-primary);
-  color: var(--home-white);
-  transform: scale(1.05);
+  transition: all 0.3s ease;
 }
 
 .home-feature-card h3 {
-  font-size: 1.5rem;
+  font-size: clamp(1.3rem, 4vw, 1.5rem);
   font-weight: 700;
   color: var(--home-text-dark);
-  margin-bottom: 12px;
+  margin-bottom: 0.75rem;
 }
 
 .home-feature-card p {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   line-height: 1.6;
   color: var(--home-gray-700);
 }
 
-/* ===== CLASSES SECTION ===== */
+/* Classes section - redesigned responsive grid (no Swiper) */
 .home-classes {
-  padding: 100px 0;
+  padding: clamp(3rem, 8vw, 6rem) 0;
   background: linear-gradient(135deg, var(--home-deep-dark) 0%, #2A1A0E 100%);
 }
 
 .home-classes-title {
   color: var(--home-white);
 }
-
 .home-classes-title::after {
   background: var(--home-secondary);
 }
-
 .home-classes-subtitle {
   color: var(--home-gray-300);
 }
@@ -283,7 +291,23 @@ body {
 .home-classes-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 1.5rem;
+}
+
+/* Responsive breakpoints for classes grid */
+@media (max-width: 1024px) {
+  .home-classes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .home-classes-grid {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .home-class-card {
@@ -294,22 +318,31 @@ body {
   aspect-ratio: 4/5;
   box-shadow: var(--home-shadow-sm);
   transition: var(--home-transition);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s;
 }
 
-.home-class-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--home-shadow-xl);
+.home-class-card.reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (hover: hover) and (min-width: 1025px) {
+  .home-class-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--home-shadow-xl);
+  }
+  .home-class-card:hover img {
+    transform: scale(1.08);
+  }
 }
 
 .home-class-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.home-class-card:hover img {
-  transform: scale(1.08);
+  transition: transform 0.5s ease;
 }
 
 .home-class-overlay {
@@ -320,34 +353,45 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 0.75rem;
   opacity: 0;
-  transition: var(--home-transition);
+  transition: opacity 0.3s ease;
 }
 
-.home-class-card:hover .home-class-overlay {
-  opacity: 1;
+@media (hover: hover) and (min-width: 1025px) {
+  .home-class-card:hover .home-class-overlay {
+    opacity: 1;
+  }
+}
+
+/* On mobile, always show overlay for better UX (no hover) */
+@media (max-width: 1024px) {
+  .home-class-overlay {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(136, 73, 25, 0.9), rgba(0, 0, 0, 0.5));
+  }
 }
 
 .home-class-overlay h3 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: var(--home-white);
   text-transform: uppercase;
   letter-spacing: 2px;
-  transform: translateY(20px);
-  transition: transform 0.4s ease;
+  transition: transform 0.3s ease;
 }
 
-.home-class-card:hover .home-class-overlay h3 {
-  transform: translateY(0);
+@media (max-width: 768px) {
+  .home-class-overlay h3 {
+    font-size: 1.3rem;
+  }
 }
 
 .home-class-btn {
   background: var(--home-secondary);
   border: none;
-  padding: 10px 24px;
-  font-size: 0.9rem;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.85rem;
   font-weight: 600;
   border-radius: 40px;
   cursor: pointer;
@@ -355,234 +399,23 @@ body {
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: var(--home-transition);
-  transform: translateY(20px);
-  opacity: 0;
 }
 
-.home-class-card:hover .home-class-btn {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.home-class-btn:hover {
-  background: var(--home-secondary-dark);
-  transform: scale(1.05);
+@media (hover: hover) and (min-width: 1025px) {
+  .home-class-btn:hover {
+    background: var(--home-secondary-dark);
+    transform: scale(1.05);
+  }
 }
 
 .home-classes-footer {
   text-align: center;
-  margin-top: 48px;
+  margin-top: 3rem;
 }
 
-/* ===== PRICING SECTION ===== */
-.home-pricing {
-  padding: 100px 0;
-  background: linear-gradient(135deg, var(--home-deep-dark) 0%, #2A1A0E 100%);
-}
-
-.home-pricing-title {
-  color: var(--home-white);
-}
-
-.home-pricing-title::after {
-  background: var(--home-secondary);
-}
-
-.home-pricing-subtitle {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.home-pricing-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 48px;
-}
-
-.home-pricing-tab {
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid transparent;
-  padding: 10px 32px;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 50px;
-  cursor: pointer;
-  color: var(--home-white);
-  transition: var(--home-transition);
-}
-
-.home-pricing-tab.active {
-  background: var(--home-secondary);
-  color: var(--home-deep-dark);
-  border-color: var(--home-secondary);
-}
-
-.home-pricing-tab:hover:not(.active) {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.home-pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-}
-
-.home-pricing-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: var(--home-radius-xl);
-  padding: 40px 32px;
-  transition: var(--home-transition);
-  position: relative;
-  text-align: center;
-  border: 1px solid rgba(223, 168, 75, 0.2);
-}
-
-.home-pricing-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--home-shadow-xl);
-  border-color: var(--home-secondary);
-}
-
-.home-pricing-card.home-popular {
-  background: linear-gradient(135deg, rgba(136, 73, 25, 0.25), rgba(22, 12, 6, 0.9));
-  border: 2px solid var(--home-secondary);
-  transform: scale(1.02);
-}
-
-.home-pricing-card.home-popular:hover {
-  transform: scale(1.02) translateY(-8px);
-}
-
-.home-popular-badge {
-  position: absolute;
-  top: -12px;
-  right: 20px;
-  background: var(--home-secondary);
-  color: var(--home-deep-dark);
-  padding: 4px 20px;
-  border-radius: 50px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.home-pricing-card h3 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--home-secondary);
-  margin-bottom: 16px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.home-pricing-price {
-  font-size: 3rem;
-  font-weight: 800;
-  color: var(--home-white);
-  margin-bottom: 8px;
-}
-
-.home-pricing-price small {
-  font-size: 1rem;
-  font-weight: 400;
-  color: rgba(245, 240, 235, 0.6);
-}
-
-.home-pricing-price::before {
-  content: "₹";
-  font-size: 1.5rem;
-  margin-right: 4px;
-  font-weight: 600;
-  color: var(--home-secondary);
-}
-
-.home-pricing-period {
-  font-size: 0.85rem;
-  color: rgba(245, 240, 235, 0.6);
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid rgba(223, 168, 75, 0.2);
-}
-
-.home-pricing-features {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 32px;
-  text-align: left;
-}
-
-.home-pricing-features li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  font-size: 0.9rem;
-  color: rgba(245, 240, 235, 0.8);
-}
-
-.home-pricing-features i {
-  color: var(--home-secondary);
-  font-size: 0.8rem;
-  width: 20px;
-}
-
-.home-pricing-btn {
-  width: 100%;
-  background: transparent;
-  border: 2px solid var(--home-secondary);
-  color: var(--home-secondary);
-  padding: 14px;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: var(--home-radius-md);
-  cursor: pointer;
-  transition: var(--home-transition);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.home-pricing-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0%;
-  height: 100%;
-  background: var(--home-secondary);
-  z-index: -1;
-  transition: width 0.4s ease;
-}
-
-.home-pricing-btn:hover::before {
-  width: 100%;
-}
-
-.home-pricing-btn:hover {
-  color: var(--home-deep-dark);
-  border-color: var(--home-secondary);
-}
-
-.home-popular .home-pricing-btn {
-  background: var(--home-secondary);
-  color: var(--home-deep-dark);
-  border: none;
-}
-
-.home-popular .home-pricing-btn::before {
-  background: var(--home-secondary-dark);
-}
-
-.home-popular .home-pricing-btn:hover {
-  color: var(--home-white);
-}
-/* ===== TRAINERS SECTION ===== */
+/* Trainers section */
 .home-trainers {
-  padding: 100px 0;
+  padding: clamp(3rem, 8vw, 6rem) 0;
   background: var(--home-gray-100);
 }
 
@@ -593,29 +426,37 @@ body {
 .home-trainers-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
+  gap: 1.5rem;
 }
 
-/* Make all trainer cards same height */
-.home-trainer-card {
+.home-trainer-card,
+.view-all-card {
   background: var(--home-white);
   border-radius: var(--home-radius-lg);
   overflow: hidden;
   transition: var(--home-transition);
   box-shadow: var(--home-shadow-sm);
   text-align: center;
-  padding-bottom: 24px;
+  padding-bottom: 1.5rem;
   border: 1px solid var(--home-gray-300);
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 380px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s, border-color 0.3s;
 }
 
-.home-trainer-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--home-shadow-lg);
-  border-color: var(--home-secondary);
+.home-trainer-card.reveal,
+.view-all-card.reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.home-trainer-card-link {
+  text-decoration: none;
+  display: block;
+  height: 100%;
 }
 
 .home-trainer-image {
@@ -632,8 +473,15 @@ body {
   transition: transform 0.5s ease;
 }
 
-.home-trainer-card:hover .home-trainer-image img {
-  transform: scale(1.08);
+@media (hover: hover) and (min-width: 1025px) {
+  .home-trainer-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--home-shadow-lg);
+    border-color: var(--home-secondary);
+  }
+  .home-trainer-card:hover .home-trainer-image img {
+    transform: scale(1.08);
+  }
 }
 
 .home-trainer-social {
@@ -642,16 +490,25 @@ body {
   left: 0;
   right: 0;
   background: linear-gradient(to top, rgba(136, 73, 25, 0.9), transparent);
-  padding: 20px;
+  padding: 1rem;
   display: flex;
   justify-content: center;
-  gap: 16px;
-  transform: translateY(100%);
-  transition: var(--home-transition);
+  gap: 1rem;
+  transition: transform 0.3s ease;
 }
 
-.home-trainer-card:hover .home-trainer-social {
-  transform: translateY(0);
+@media (min-width: 1025px) {
+  .home-trainer-social {
+    transform: translateY(100%);
+  }
+  .home-trainer-card:hover .home-trainer-social {
+    transform: translateY(0);
+  }
+}
+@media (max-width: 1024px) {
+  .home-trainer-social {
+    transform: translateY(0);
+  }
 }
 
 .home-trainer-social a {
@@ -663,234 +520,181 @@ body {
   align-items: center;
   justify-content: center;
   color: var(--home-primary);
-  transition: var(--home-transition);
+  transition: all 0.3s ease;
   text-decoration: none;
 }
 
-.home-trainer-social a:hover {
-  background: var(--home-secondary);
-  transform: scale(1.1);
-  color: var(--home-deep-dark);
+@media (hover: hover) and (min-width: 1025px) {
+  .home-trainer-social a:hover {
+    background: var(--home-secondary);
+    transform: scale(1.1);
+    color: var(--home-deep-dark);
+  }
 }
 
 .home-trainer-card h3 {
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
   font-weight: 700;
   color: var(--home-primary);
-  margin: 20px 0 4px;
+  margin: 1rem 0 0.25rem;
 }
 
 .home-trainer-card p {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--home-gray-500);
   text-transform: uppercase;
   letter-spacing: 1px;
   margin: 0;
 }
 
-/* ===== VIEW ALL TRAINERS CARD ===== */
-.home-trainer-card-link {
-  text-decoration: none;
-  display: block;
-  height: 100%;
-}
-
 .view-all-card {
   background: linear-gradient(135deg, var(--home-primary) 0%, var(--home-primary-dark) 100%);
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: var(--home-transition);
-  padding: 20px;
-  height: 100%;
-  min-height: 380px;
-  border-radius: var(--home-radius-lg);
-}
-
-.view-all-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--home-shadow-lg);
+  padding: 1rem;
 }
 
 .view-all-icon {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 25px;
-  transition: var(--home-transition);
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
 }
-
-.view-all-card:hover .view-all-icon {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.05);
-}
-
 .view-all-icon i {
-  font-size: 2.2rem;
+  font-size: 2rem;
   color: var(--home-white);
 }
 
 .view-all-card h3 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--home-white);
-  margin-bottom: 12px;
+  margin-bottom: 0.5rem;
 }
 
 .view-all-card p {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
 
 .view-all-arrow {
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--home-transition);
+  transition: all 0.3s ease;
 }
-
-.view-all-card:hover .view-all-arrow {
-  background: var(--home-white);
-  transform: translateX(5px);
-}
-
-.view-all-card:hover .view-all-arrow i {
-  color: var(--home-primary);
-}
-
 .view-all-arrow i {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: var(--home-white);
-  transition: var(--home-transition);
+  transition: transform 0.2s;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 1024px) {
-  .home-features-grid,
-  .home-classes-grid,
-  .home-pricing-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+@media (hover: hover) and (min-width: 1025px) {
+  .view-all-card:hover .view-all-icon {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
   }
-  .home-trainers-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .view-all-card:hover .view-all-arrow {
+    background: var(--home-white);
+    transform: translateX(5px);
   }
-}
-/* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 1024px) {
-  .home-features-grid,
-  .home-classes-grid,
-  .home-pricing-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-  .home-trainers-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .home-trainer-card,
-  .view-all-card {
-    min-height: 350px;
+  .view-all-card:hover .view-all-arrow i {
+    color: var(--home-primary);
   }
 }
 
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive grid adjustments for trainers */
+@media (max-width: 1024px) {
+  .home-trainers-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .home-trainers-grid {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* General responsive fixes */
 @media (max-width: 768px) {
-  .home-container {
-    padding: 0 20px;
-  }
-  .home-features,
-  .home-classes,
-  .home-pricing,
-  .home-trainers {
-    padding: 60px 0;
-  }
-  .home-section-header {
-    margin-bottom: 40px;
+  .home-hero {
+    min-height: 500px;
   }
   .home-hero-title {
-    letter-spacing: 3px;
+    letter-spacing: 0.05em;
   }
   .home-hero-buttons {
     flex-direction: column;
     align-items: center;
   }
-  .home-hero-buttons .home-btn-primary,
-  .home-hero-buttons .home-btn-outline {
-    width: 200px;
+  .home-btn-outline {
+    width: 220px;
   }
-  .home-pricing-card {
-    padding: 30px 24px;
+  .home-features,
+  .home-classes,
+  .home-trainers {
+    padding: 3rem 0;
   }
-  .home-trainer-card,
-  .view-all-card {
-    min-height: 320px;
+  .home-section-header {
+    margin-bottom: 2rem;
   }
 }
 
 @media (max-width: 640px) {
-  .home-features-grid,
-  .home-classes-grid,
-  .home-pricing-grid,
-  .home-trainers-grid {
+  .home-features-grid {
     grid-template-columns: 1fr;
-    max-width: 380px;
-    margin: 0 auto;
-  }
-  .home-pricing-card.home-popular {
-    transform: scale(1);
-  }
-  .home-pricing-card.home-popular:hover {
-    transform: translateY(-8px);
-  }
-  .home-class-overlay {
-    opacity: 1;
-    background: linear-gradient(to top, rgba(136, 73, 25, 0.9), rgba(0, 0, 0, 0.5));
-  }
-  .home-class-overlay h3 {
-    transform: translateY(0);
-    font-size: 1.4rem;
-  }
-  .home-class-btn {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .home-pricing-price {
-    font-size: 2.5rem;
-  }
-  .home-pricing-card h3 {
-    font-size: 1.5rem;
-  }
-  .view-all-card {
-    padding: 30px 20px;
-  }
-  .home-trainer-card,
-  .view-all-card {
-    min-height: auto;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
 @media (max-width: 480px) {
   .home-hero {
-    min-height: 600px;
+    min-height: 450px;
+    height: 70vh;
   }
   .home-hero-title {
-    letter-spacing: 2px;
+    font-size: 2.2rem;
+  }
+  .home-btn-outline {
+    width: 150px;
+    font-size: 0.600rem;
+    padding: 10px;
   }
   .home-hero-subtitle {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
   .home-feature-card {
-    padding: 30px 20px;
+    padding: 1.5rem;
   }
   .home-feature-icon {
     width: 60px;
@@ -898,25 +702,19 @@ body {
     font-size: 1.5rem;
   }
   .home-feature-card h3 {
-    font-size: 1.3rem;
-  }
-  .home-feature-card p {
-    font-size: 0.85rem;
-  }
-  .home-pricing-features li {
-    font-size: 0.8rem;
+    font-size: 1.2rem;
   }
   .home-trainer-card h3 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
   .view-all-icon {
     width: 60px;
     height: 60px;
   }
   .view-all-icon i {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
-  .view-all-card h3 {
-    font-size: 1.3rem;
+  .view-all-card {
+    padding: 1.5rem;
   }
 }

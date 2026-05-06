@@ -4,10 +4,31 @@
   padding: 0;
 }
 
-body {
-  font-family: "Space Grotesk", sans-serif;
-  font-optical-sizing: auto;
-  background-color: #ddd;
+/* ===== GLOBAL FONT FAMILY ===== */
+/* ===== GLOBAL FONTS – IRONIX ===== */
+/* Headings: Anton SC (bold, condensed impact)
+   Body: Cantarell (clean, readable) */
+
+:root {
+  --font-heading: 'Anton SC', sans-serif;
+  --font-body: 'Cantarell', sans-serif;
+}
+
+/* Apply body font to everything */
+body, button, input, textarea, select, a, p, li, span, div {
+  font-family: var(--font-body);
+}
+
+/* Apply heading font to all heading tags and heading classes */
+h1, h2, h3, h4, h5, h6, .heading, .hero-title, .section-title {
+  font-family: var(--font-heading);
+  font-weight: 400;  /* Anton SC only has one weight */
+  letter-spacing: 1px;
+}
+
+/* Optional: keep Cantarell bold for strong emphasis */
+strong, b {
+  font-weight: 700;
 }
 /* ===== PROFESSIONAL OFFLINE PAGE – EARTH & BRONZE ===== */
 

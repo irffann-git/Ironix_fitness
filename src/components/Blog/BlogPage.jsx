@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./BlogPage.css";
+  import { useEffect } from "react"; 
 
 function BlogPage() {
   const blogs = [
@@ -52,6 +53,30 @@ function BlogPage() {
       image: "/blog6.jpg",
     },
   ];
+
+
+
+
+
+// Add this inside the component, before the return
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.20, rootMargin: '0px 0px -30px 0px' }
+  );
+
+  const cards = document.querySelectorAll('.blog-post-card');
+  cards.forEach((card) => observer.observe(card));
+
+  return () => observer.disconnect();
+}, []);
 
   return (
     <div className="blog-page-wrapper">

@@ -1,5 +1,5 @@
 /* ===== EARTH & BRONZE THEME - 404 NOT FOUND PAGE ===== */
-/* Theme Colors: Deep Earth #160C06 | Warm Bronze #884919 | Golden Amber #DFA84B */
+/* Hover effects only on desktop (>=1025px) */
 
 :root {
   --nf-primary: #884919;
@@ -36,7 +36,7 @@
   background: linear-gradient(135deg, var(--nf-deep-dark) 0%, #2A1A0E 100%);
   font-family: 'Inter', 'Poppins', 'Montserrat', sans-serif;
   text-align: center;
-  padding: 100px 20px 60px;
+  padding: 60px 20px 40px;
   overflow: hidden;
 }
 
@@ -54,12 +54,8 @@
 }
 
 @keyframes nfRotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* Overlay */
@@ -78,10 +74,11 @@
   position: relative;
   z-index: 2;
   max-width: 700px;
+  width: 90%;
   color: var(--nf-white);
   background: rgba(22, 12, 6, 0.85);
   backdrop-filter: blur(15px);
-  padding: 50px 60px;
+  padding: 40px 40px;
   border-radius: var(--nf-radius-xl);
   box-shadow: var(--nf-shadow-xl);
   border: 1px solid rgba(223, 168, 75, 0.2);
@@ -89,15 +86,18 @@
   animation: nfFadeUp 0.6s ease forwards;
 }
 
-.nf-content-card:hover {
-  border-color: var(--nf-secondary);
-  transform: translateY(-5px);
-  box-shadow: var(--nf-shadow-xl);
+/* Hover effect for card – only on desktop >=1025px */
+@media (min-width: 1025px) {
+  .nf-content-card:hover {
+    border-color: var(--nf-secondary);
+    transform: translateY(-5px);
+    box-shadow: var(--nf-shadow-xl);
+  }
 }
 
 /* ===== 404 ERROR CODE ===== */
 .nf-error-code {
-  font-size: 8rem;
+  font-size: 6rem;
   font-weight: 900;
   background: linear-gradient(135deg, var(--nf-white) 0%, var(--nf-secondary) 100%);
   background-clip: text;
@@ -107,7 +107,7 @@
   margin: 0;
   line-height: 1;
   text-shadow: none;
-  letter-spacing: 10px;
+  letter-spacing: 8px;
   position: relative;
 }
 
@@ -117,27 +117,27 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 8rem;
+  font-size: 6rem;
   font-weight: 900;
   color: rgba(223, 168, 75, 0.1);
   z-index: -1;
-  letter-spacing: 10px;
+  letter-spacing: 8px;
 }
 
 /* ===== ERROR TITLE ===== */
 .nf-error-title {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--nf-secondary);
-  margin: 10px 0 20px;
-  letter-spacing: 2px;
+  margin: 10px 0 15px;
+  letter-spacing: 1px;
 }
 
 /* ===== ERROR MESSAGE ===== */
 .nf-error-message {
-  font-size: 1rem;
-  margin: 20px 0 35px;
-  line-height: 1.8;
+  font-size: 0.95rem;
+  margin: 15px 0 25px;
+  line-height: 1.6;
   color: var(--nf-text-light);
   max-width: 500px;
   margin-left: auto;
@@ -151,18 +151,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   background: transparent;
   color: var(--nf-secondary);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  padding: 14px 40px;
+  letter-spacing: 1.5px;
+  padding: 12px 32px;
   border-radius: 50px;
   text-decoration: none;
   transition: var(--nf-transition-base);
   border: 2px solid var(--nf-secondary);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   box-shadow: var(--nf-shadow-sm);
   z-index: 1;
   cursor: pointer;
@@ -180,71 +180,74 @@
   z-index: -1;
 }
 
-.nf-home-button:hover::before {
-  width: 100%;
-}
-
-.nf-home-button:hover {
-  color: var(--nf-deep-dark);
-  border-color: var(--nf-secondary);
-  transform: translateY(-2px);
-  box-shadow: var(--nf-shadow-md);
-}
-
-.nf-home-button i {
-  transition: transform 0.3s ease;
-}
-
-.nf-home-button:hover i {
-  transform: translateX(-3px);
+/* Desktop hover (>=1025px) */
+@media (min-width: 1025px) {
+  .nf-home-button:hover::before {
+    width: 100%;
+  }
+  .nf-home-button:hover {
+    color: var(--nf-deep-dark);
+    border-color: var(--nf-secondary);
+    transform: translateY(-2px);
+    box-shadow: var(--nf-shadow-md);
+  }
+  .nf-home-button i {
+    transition: transform 0.3s ease;
+  }
+  .nf-home-button:hover i {
+    transform: translateX(-3px);
+  }
 }
 
 /* ===== SUGGESTIONS SECTION ===== */
 .nf-suggestions {
-  margin-top: 40px;
-  padding-top: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
   border-top: 1px solid rgba(223, 168, 75, 0.15);
 }
 
 .nf-suggestions-title {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: rgba(245, 240, 235, 0.6);
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .nf-suggestions-links {
   display: flex;
   justify-content: center;
-  gap: 25px;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
 .nf-suggestions-links a {
   color: rgba(245, 240, 235, 0.7);
   text-decoration: none;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   transition: var(--nf-transition-base);
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 
-.nf-suggestions-links a:hover {
-  color: var(--nf-secondary);
-  transform: translateX(3px);
+/* Desktop hover only */
+@media (min-width: 1025px) {
+  .nf-suggestions-links a:hover {
+    color: var(--nf-secondary);
+    transform: translateX(3px);
+  }
 }
 
 .nf-suggestions-links i {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
 }
 
 /* ===== FLOATING ICON ===== */
 .nf-floating-icon {
   position: absolute;
   opacity: 0.05;
-  font-size: 10rem;
-  bottom: -50px;
-  right: -50px;
+  font-size: 8rem;
+  bottom: -30px;
+  right: -30px;
   z-index: 0;
   pointer-events: none;
   color: var(--nf-secondary);
@@ -262,97 +265,152 @@
   }
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 768px) {
-  .nf-page-wrapper {
-    padding: 80px 20px 50px;
-  }
-
-  .nf-content-card {
-    padding: 35px 30px;
-  }
-
-  .nf-error-code {
-    font-size: 5rem;
-    letter-spacing: 6px;
-  }
-
-  .nf-error-code::after {
-    font-size: 5rem;
-    letter-spacing: 6px;
-  }
-
-  .nf-error-title {
-    font-size: 1.3rem;
-  }
-
-  .nf-error-message {
-    font-size: 0.95rem;
-    line-height: 1.7;
-  }
-
-  .nf-home-button {
-    padding: 12px 32px;
-    font-size: 0.85rem;
-  }
-
-  .nf-suggestions-links {
-    gap: 20px;
-  }
-
+/* ===== RESPONSIVE DESIGN - MOBILE FIRST, NO HOVER EFFECTS ===== */
+@media (max-width: 1024px) {
+  /* Disable any hover transformations for tablets and mobiles */
+  .nf-content-card,
+  .nf-home-button,
   .nf-suggestions-links a {
-    font-size: 0.8rem;
+    transition: none;
   }
-  
-  .nf-floating-icon {
-    font-size: 6rem;
-    bottom: -30px;
-    right: -30px;
+  /* Ensure no scale or translate on hover/tap */
+  .nf-home-button:active {
+    transform: none;
+    opacity: 0.8;
+  }
+  .nf-suggestions-links a:active {
+    opacity: 0.7;
   }
 }
 
-@media (max-width: 480px) {
+/* Tablet (up to 768px) */
+@media (max-width: 768px) {
   .nf-page-wrapper {
-    padding: 60px 15px 40px;
+    padding: 40px 16px;
   }
-
   .nf-content-card {
-    padding: 25px 20px;
+    padding: 30px 24px;
+    width: 95%;
   }
-
   .nf-error-code {
-    font-size: 3.8rem;
-    letter-spacing: 4px;
+    font-size: 4.5rem;
+    letter-spacing: 6px;
   }
-
   .nf-error-code::after {
-    font-size: 3.8rem;
-    letter-spacing: 4px;
+    font-size: 4.5rem;
+    letter-spacing: 6px;
   }
-
   .nf-error-title {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
+    margin: 8px 0 12px;
   }
-
   .nf-error-message {
     font-size: 0.9rem;
-    margin: 15px 0 25px;
+    margin: 12px 0 20px;
+    line-height: 1.5;
   }
+  .nf-home-button {
+    padding: 10px 28px;
+    font-size: 0.8rem;
+  }
+  .nf-suggestions {
+    margin-top: 24px;
+    padding-top: 16px;
+  }
+  .nf-suggestions-links {
+    gap: 16px;
+  }
+  .nf-floating-icon {
+    font-size: 6rem;
+    bottom: -20px;
+    right: -20px;
+  }
+}
 
+/* Mobile (up to 480px) */
+@media (max-width: 480px) {
+  .nf-page-wrapper {
+    padding: 30px 12px;
+  }
+  .nf-content-card {
+    padding: 20px 16px;
+    width: 100%;
+  }
+  .nf-error-code {
+    font-size: 3.5rem;
+    letter-spacing: 4px;
+  }
+  .nf-error-code::after {
+    font-size: 3.5rem;
+    letter-spacing: 4px;
+  }
+  .nf-error-title {
+    font-size: 1.1rem;
+    margin: 6px 0 10px;
+  }
+  .nf-error-message {
+    font-size: 0.85rem;
+    margin: 10px 0 16px;
+    line-height: 1.45;
+  }
   .nf-home-button {
     width: 100%;
-    max-width: 250px;
+    max-width: 220px;
     justify-content: center;
-    padding: 12px 20px;
+    padding: 10px 16px;
+    font-size: 0.75rem;
+    gap: 8px;
   }
-
+  .nf-suggestions {
+    margin-top: 20px;
+    padding-top: 12px;
+  }
+  .nf-suggestions-title {
+    font-size: 0.7rem;
+    margin-bottom: 8px;
+  }
   .nf-suggestions-links {
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     align-items: center;
   }
-
   .nf-suggestions-links a {
+    font-size: 0.75rem;
     justify-content: center;
+  }
+  .nf-floating-icon {
+    font-size: 4.5rem;
+    bottom: -15px;
+    right: -15px;
+    opacity: 0.04;
+  }
+}
+
+/* Extra small devices (<=360px) */
+@media (max-width: 360px) {
+  .nf-content-card {
+    padding: 16px 12px;
+  }
+  .nf-error-code {
+    font-size: 3rem;
+    letter-spacing: 2px;
+  }
+  .nf-error-code::after {
+    font-size: 3rem;
+    letter-spacing: 2px;
+  }
+  .nf-error-title {
+    font-size: 1rem;
+  }
+  .nf-error-message {
+    font-size: 0.8rem;
+  }
+  .nf-home-button {
+    max-width: 180px;
+    padding: 8px 12px;
+    font-size: 0.7rem;
+  }
+  .nf-suggestions-links a {
+    font-size: 0.7rem;
   }
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"; 
 import { useParams, Link } from "react-router-dom";
 import blogs from "../../Data/BlogData";
 import "./ArticlePage.css";
@@ -11,6 +11,29 @@ function ArticlePage() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
+
+
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.20, rootMargin: '0px 0px -50px 0px' }
+  );
+
+  const elements = document.querySelectorAll(
+    '.article-content-heading, .article-content-paragraph, .article-image-wrapper, .article-newsletter, .article-more-card'
+  );
+  elements.forEach((el) => observer.observe(el));
+
+  return () => observer.disconnect();
+}, []);
+  
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -32,6 +55,8 @@ function ArticlePage() {
       </div>
     );
   }
+
+  
 
   const otherBlogs = blogs.filter((b) => b.id !== blog.id).slice(0, 3);
 

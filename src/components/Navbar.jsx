@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./Navbar.css";
 
-
 const API = import.meta.env.VITE_API_URL;
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { user, logout } = useAuth();
 
   const mobileMenuRef = useRef(null);
@@ -27,6 +27,21 @@ function Navbar() {
     logout();
     window.location.reload();
   };
+
+  const handleMobileLogout = () => {
+    logout();
+    closeMobileMenu();
+    window.location.reload();
+  };
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -68,7 +83,6 @@ function Navbar() {
     };
   }, [showAuthModal]);
 
-  // Get profile image URL
   const getProfileImage = () => {
     if (user?.profileImage) {
       if (user.profileImage.startsWith("data:image") || user.profileImage.startsWith("http")) {
@@ -81,7 +95,7 @@ function Navbar() {
 
   return (
     <>
-      <div className="nav-wrapper">
+      <div className={`nav-wrapper ${isScrolled ? "nav-scrolled" : ""}`}>
         <div className="nav-bar">
           <div className="nav-logo">
             <Link to="/">
@@ -129,6 +143,7 @@ function Navbar() {
           </div>
         </div>
 
+        {/* Mobile Menu */}
         <div
           ref={mobileMenuRef}
           className={`nav-mobile-menu ${isMobileMenuOpen ? "nav-show" : ""}`}
@@ -136,14 +151,21 @@ function Navbar() {
           <div className="nav-mobile-header">
             <div className="nav-mobile-actions">
               {isLoggedIn ? (
-                <img
-                  src={getProfileImage()}
-                  alt="profile"
-                  className="nav-profile-img"
-                  onError={(e) => {
-                    e.target.src = "https://i.pravatar.cc/40";
-                  }}
-                />
+                <Link
+                  to="/profile"
+                  className="nav-mobile-profile-link"
+                  onClick={closeMobileMenu}
+                >
+                  <img
+                    src={getProfileImage()}
+                    alt="profile"
+                    className="nav-profile-img"
+                    onError={(e) => {
+                      e.target.src = "https://i.pravatar.cc/40";
+                    }}
+                  />
+                  <span className="nav-mobile-user-name">{user?.name || "User"}</span>
+                </Link>
               ) : (
                 <button
                   className="nav-signin-btn"
@@ -171,9 +193,18 @@ function Navbar() {
             <Link to="/blog" onClick={closeMobileMenu}>Blog</Link>
             <Link to="/contact" onClick={closeMobileMenu}>Contact</Link>
           </div>
+
+          {isLoggedIn && (
+            <div className="nav-mobile-logout">
+              <button onClick={handleMobileLogout} className="nav-mobile-logout-btn">
+                <i className="fas fa-sign-out-alt"></i> Logout
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
+      {/* Auth Modal */}
       <div className={`nav-auth-modal ${showAuthModal ? "nav-show" : ""}`}>
         <div className="nav-auth-card" ref={authModalRef}>
           <button className="nav-auth-close" onClick={closeAuthModal}>

@@ -11,6 +11,28 @@ function AboutPage() {
   const swiperInstance = useRef(null);
   const contentRef = useRef(null);
 
+
+// Add this inside your AboutPage component
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal');
+          observer.unobserve(entry.target); // only once
+        }
+      });
+    },
+    { threshold: 0.20, rootMargin: '0px 0px -50px 0px' }
+  );
+
+  const cards = document.querySelectorAll('.about-feature-card, .about-testimonial-card, .about-trainer-card, .view-all-card');
+  cards.forEach((card) => observer.observe(card));
+
+  return () => observer.disconnect();
+}, []);
+
+
   // Simplified parallax effect - removed buggy transform
   useEffect(() => {
     const handleScroll = () => {

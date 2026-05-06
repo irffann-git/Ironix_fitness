@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import axios from "axios";
 import "./ContactPage.css";
 
@@ -64,6 +64,29 @@ function ContactPage() {
       }, 5000);
     }
   };
+
+
+
+
+// Inside ContactPage component, add:
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.20, rootMargin: '0px 0px -50px 0px' }
+  );
+
+  const elements = document.querySelectorAll('.cnt-container, .cnt-form-col, .cnt-info-col');
+  elements.forEach((el) => observer.observe(el));
+
+  return () => observer.disconnect();
+}, []);
 
   return (
     <div className="cnt-page-wrapper">

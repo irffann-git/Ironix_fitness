@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./TermAndConditionsPage.css";
 
 const sections = [
@@ -54,6 +55,24 @@ const sections = [
 ];
 
 function TermsAndConditionsPage() {
+
+
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
+    );
+    document.querySelectorAll('.terms-section').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
   return (
     <div className="terms-page-wrapper">
       <div className="terms-content-card">

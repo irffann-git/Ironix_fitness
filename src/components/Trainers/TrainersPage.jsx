@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { trainersData, categoriesData } from "../../Data/trainers_data";
 import "./TrainersPage.css";
@@ -7,17 +7,61 @@ function TrainersPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [showVacancyModal, setShowVacancyModal] = useState(false);
+  const [observerTrigger, setObserverTrigger] = useState(0); // force re-observation
 
   const trainers = trainersData;
   const categories = categoriesData;
 
   const filteredTrainers = trainers.filter(trainer => {
     const matchesCategory = selectedCategory === "all" || trainer.category === selectedCategory;
-    const matchesSearch = trainer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesSearch = searchTerm === "" || 
+                          trainer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           trainer.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           trainer.specialties.some(s => s.toLowerCase().includes(searchTerm.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
+
+  // Clear search when category changes
+  const handleCategoryChange = (categoryId) => {
+    setSelectedCategory(categoryId);
+    setSearchTerm("");
+    // Trigger observer re-run after filter
+    setObserverTrigger(prev => prev + 1);
+  };
+
+  // Clear all filters
+  const handleClearFilters = () => {
+    setSearchTerm("");
+    setSelectedCategory("all");
+    setObserverTrigger(prev => prev + 1);
+  };
+
+  // Scroll reveal observer – re‑attaches whenever filteredTrainers changes or observerTrigger changes
+  useEffect(() => {
+    // Small delay to ensure DOM is updated after filter
+    const timer = setTimeout(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('reveal');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
+      );
+
+      const elements = document.querySelectorAll(
+        '.trainers-stat-card, .trainers-card, .trainers-join-container'
+      );
+      elements.forEach((el) => observer.observe(el));
+
+      return () => observer.disconnect();
+    }, 50);
+
+    return () => clearTimeout(timer);
+  }, [filteredTrainers.length, observerTrigger]);
 
   return (
     <div className="trainers-page-wrapper">
@@ -70,7 +114,7 @@ function TrainersPage() {
           </div>
         </div>
 
-        {/* Filters Section */}
+        {/* Filters Section - with clear search button */}
         <div className="trainers-filters-wrapper">
           <div className="trainers-search-container">
             <i className="fas fa-search trainers-search-icon"></i>
@@ -81,6 +125,15 @@ function TrainersPage() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
+            {searchTerm && (
+              <button 
+                className="trainers-clear-search"
+                onClick={() => setSearchTerm("")}
+                aria-label="Clear search"
+              >
+                <i className="fas fa-times"></i>
+              </button>
+            )}
           </div>
           
           <div className="trainers-categories-container">
@@ -88,7 +141,7 @@ function TrainersPage() {
               <button
                 key={cat.id}
                 className={`trainers-category-btn ${selectedCategory === cat.id ? "trainers-active" : ""}`}
-                onClick={() => setSelectedCategory(cat.id)}
+                onClick={() => handleCategoryChange(cat.id)}
               >
                 <i className={cat.icon}></i>
                 {cat.name}
@@ -148,7 +201,10 @@ function TrainersPage() {
             <i className="fas fa-search trainers-empty-icon"></i>
             <h3 className="trainers-empty-title">No trainers found</h3>
             <p className="trainers-empty-message">Try adjusting your search or filter criteria</p>
-            <button className="trainers-clear-btn" onClick={() => { setSearchTerm(""); setSelectedCategory("all"); }}>
+            <button 
+              className="trainers-clear-btn" 
+              onClick={handleClearFilters}
+            >
               Clear Filters
             </button>
           </div>

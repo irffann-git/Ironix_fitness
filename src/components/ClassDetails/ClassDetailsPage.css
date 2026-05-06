@@ -1,4 +1,8 @@
-/* ===== EARTH & BRONZE THEME - CLASS DETAILS PAGE ===== */
+/* ============================================
+   IRONIX CLASS DETAILS PAGE - PROFESSIONAL RESPONSIVE
+   Earth & Bronze Theme | Hover only on desktop
+   Scroll reveal animations
+   ============================================ */
 
 :root {
   --cd-primary: #884919;
@@ -19,6 +23,7 @@
   --cd-shadow-sm: 0 4px 16px rgba(22, 12, 6, 0.08);
   --cd-shadow-md: 0 8px 32px rgba(22, 12, 6, 0.12);
   --cd-shadow-lg: 0 16px 48px rgba(22, 12, 6, 0.15);
+  --cd-shadow-xl: 0 24px 64px rgba(22, 12, 6, 0.2);
   --cd-radius-sm: 8px;
   --cd-radius-md: 12px;
   --cd-radius-lg: 20px;
@@ -65,48 +70,51 @@
   z-index: 2;
   text-align: center;
   color: var(--cd-white);
-  padding: 0 20px;
+  padding: 0 1rem;
+  width: 100%;
 }
 
 .cd-back-link {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
   color: var(--cd-white);
   text-decoration: none;
   font-size: 0.9rem;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   transition: var(--cd-transition);
 }
 
-.cd-back-link:hover {
-  color: var(--cd-secondary);
-  transform: translateX(-3px);
+@media (hover: hover) and (min-width: 1025px) {
+  .cd-back-link:hover {
+    color: var(--cd-secondary);
+    transform: translateX(-3px);
+  }
 }
 
 .cd-hero-title {
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2rem, 6vw, 3.5rem);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 3px;
-  margin-bottom: 20px;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
 }
 
 .cd-hero-tags {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: clamp(0.5rem, 2vw, 0.75rem);
   flex-wrap: wrap;
 }
 
 .cd-tag {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
   background: rgba(255, 255, 255, 0.15);
   border-radius: 50px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   backdrop-filter: blur(4px);
 }
@@ -115,7 +123,7 @@
 .cd-main-wrapper {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 60px 24px;
+  padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 5vw, 2rem);
 }
 
 .cd-container {
@@ -125,17 +133,30 @@
 .cd-grid {
   display: grid;
   grid-template-columns: 1fr 0.8fr;
-  gap: 40px;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
 }
 
-/* ===== LEFT COLUMN ===== */
+/* ===== LEFT COLUMN (reveal animations) ===== */
 .cd-left-column {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
 }
 
-/* Gallery Section */
+.cd-gallery,
+.cd-info-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.7s ease;
+}
+
+.cd-gallery.reveal,
+.cd-info-card.reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Gallery */
 .cd-gallery {
   background: var(--cd-white);
   border-radius: var(--cd-radius-lg);
@@ -154,13 +175,20 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+@media (hover: hover) and (min-width: 1025px) {
+  .cd-main-image img:hover {
+    transform: scale(1.02);
+  }
 }
 
 .cd-thumbnail-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  padding: 12px;
+  gap: 0.5rem;
+  padding: 0.75rem;
 }
 
 .cd-thumbnail {
@@ -180,26 +208,32 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
-.cd-thumbnail:hover {
-  transform: scale(1.02);
+@media (hover: hover) and (min-width: 1025px) {
+  .cd-thumbnail:hover {
+    transform: scale(1.02);
+  }
+  .cd-thumbnail:hover img {
+    transform: scale(1.05);
+  }
 }
 
 /* Info Cards */
 .cd-info-card {
   background: var(--cd-white);
   border-radius: var(--cd-radius-lg);
-  padding: 28px;
+  padding: clamp(1.5rem, 4vw, 2rem);
   box-shadow: var(--cd-shadow-sm);
   border: 1px solid var(--cd-gray-200);
 }
 
 .cd-section-title {
-  font-size: 1.3rem;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
   font-weight: 700;
   color: var(--cd-primary);
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   position: relative;
   display: inline-block;
 }
@@ -207,7 +241,7 @@
 .cd-section-title::after {
   content: '';
   position: absolute;
-  bottom: -6px;
+  bottom: -0.4rem;
   left: 0;
   width: 40px;
   height: 3px;
@@ -216,25 +250,25 @@
 }
 
 .cd-description-text {
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 3vw, 1rem);
   line-height: 1.7;
   color: var(--cd-gray-700);
 }
 
-/* Benefits Grid */
+/* Benefits */
 .cd-benefits-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
 }
 
 .cd-benefit-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.75rem;
   font-size: 0.9rem;
   color: var(--cd-gray-700);
-  padding: 8px 0;
+  padding: 0.5rem 0;
 }
 
 .cd-benefit-item i {
@@ -242,18 +276,18 @@
   font-size: 1rem;
 }
 
-/* Equipment List */
+/* Equipment */
 .cd-equipment-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 0.75rem;
 }
 
 .cd-equipment-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
   background: var(--cd-gray-100);
   border-radius: 50px;
   font-size: 0.8rem;
@@ -266,18 +300,33 @@
   font-size: 0.7rem;
 }
 
-/* ===== RIGHT COLUMN ===== */
+/* ===== RIGHT COLUMN (reveal) ===== */
 .cd-right-column {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: clamp(1.5rem, 4vw, 2rem);
+}
+
+.cd-price-card,
+.cd-schedule-card,
+.cd-trainer-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.7s ease;
+}
+
+.cd-price-card.reveal,
+.cd-schedule-card.reveal,
+.cd-trainer-card.reveal {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Price Card */
 .cd-price-card {
   background: linear-gradient(135deg, var(--cd-white) 0%, var(--cd-gray-100) 100%);
   border-radius: var(--cd-radius-lg);
-  padding: 28px;
+  padding: clamp(1.5rem, 4vw, 2rem);
   text-align: center;
   box-shadow: var(--cd-shadow-md);
   border: 1px solid var(--cd-gray-200);
@@ -286,40 +335,40 @@
 }
 
 .cd-price-title {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: var(--cd-gray-500);
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 10px;
+  margin-bottom: 0.5rem;
 }
 
 .cd-price-amount {
-  font-size: 3rem;
+  font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 800;
   color: var(--cd-primary);
 }
 
 .cd-price-duration {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--cd-gray-500);
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .cd-spots-info {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
   background: rgba(223, 168, 75, 0.1);
   border-radius: 50px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--cd-primary);
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .cd-book-now-btn {
   width: 100%;
-  padding: 14px;
+  padding: 0.9rem;
   background: var(--cd-primary);
   color: var(--cd-white);
   border: none;
@@ -333,20 +382,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
-.cd-book-now-btn:hover {
-  background: var(--cd-primary-dark);
-  transform: translateY(-2px);
-  gap: 12px;
+@media (hover: hover) and (min-width: 1025px) {
+  .cd-book-now-btn:hover {
+    background: var(--cd-primary-dark);
+    transform: translateY(-2px);
+    gap: 0.75rem;
+  }
 }
 
-/* Schedule Card */
-.cd-schedule-card, .cd-trainer-card {
+.cd-login-message {
+  font-size: 0.8rem;
+  margin-top: 1rem;
+  color: var(--cd-gray-500);
+}
+
+.cd-login-message a {
+  color: var(--cd-secondary);
+  text-decoration: none;
+}
+
+/* Schedule & Trainer Cards */
+.cd-schedule-card,
+.cd-trainer-card {
   background: var(--cd-white);
   border-radius: var(--cd-radius-lg);
-  padding: 24px;
+  padding: clamp(1.5rem, 4vw, 2rem);
   box-shadow: var(--cd-shadow-sm);
   border: 1px solid var(--cd-gray-200);
 }
@@ -355,10 +418,10 @@
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--cd-primary);
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.5rem;
 }
 
 .cd-card-title i {
@@ -369,31 +432,38 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 0;
+  padding: 0.75rem 0;
   border-bottom: 1px solid var(--cd-gray-200);
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .cd-schedule-item:last-child {
   border-bottom: none;
 }
 
-.cd-schedule-day, .cd-schedule-time, .cd-schedule-trainer {
+.cd-schedule-day,
+.cd-schedule-time,
+.cd-schedule-trainer {
   font-size: 0.85rem;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.4rem;
 }
 
-.cd-schedule-day i, .cd-schedule-time i, .cd-schedule-trainer i {
+.cd-schedule-day i,
+.cd-schedule-time i,
+.cd-schedule-trainer i {
   color: var(--cd-secondary);
   font-size: 0.7rem;
 }
 
-/* Trainer Card */
+/* Trainer */
 .cd-trainer-info {
   display: flex;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
 .cd-trainer-avatar {
@@ -412,13 +482,13 @@
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--cd-primary);
-  margin-bottom: 4px;
+  margin-bottom: 0.25rem;
 }
 
 .cd-trainer-role {
   font-size: 0.8rem;
   color: var(--cd-gray-500);
-  margin-bottom: 6px;
+  margin-bottom: 0.25rem;
 }
 
 .cd-trainer-experience {
@@ -426,7 +496,7 @@
   color: var(--cd-secondary);
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 0.25rem;
 }
 
 .cd-trainer-bio {
@@ -435,14 +505,14 @@
   color: var(--cd-gray-700);
 }
 
-/* ===== NOT FOUND PAGE ===== */
+/* ===== NOT FOUND ===== */
 .cd-not-found-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, var(--cd-deep-dark) 0%, #2A1A0E 100%);
-  padding: 20px;
+  padding: 1rem;
 }
 
 .cd-not-found-content {
@@ -453,24 +523,24 @@
 .cd-not-found-content i {
   font-size: 5rem;
   color: var(--cd-secondary);
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
 
 .cd-not-found-content h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  margin-bottom: 0.5rem;
 }
 
 .cd-not-found-content p {
   color: var(--cd-gray-500);
-  margin-bottom: 30px;
+  margin-bottom: 1.5rem;
 }
 
 .cd-back-to-classes-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 28px;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
   background: var(--cd-secondary);
   color: var(--cd-deep-dark);
   text-decoration: none;
@@ -479,12 +549,14 @@
   transition: var(--cd-transition);
 }
 
-.cd-back-to-classes-btn:hover {
-  background: var(--cd-secondary-dark);
-  gap: 12px;
+@media (hover: hover) and (min-width: 1025px) {
+  .cd-back-to-classes-btn:hover {
+    background: var(--cd-secondary-dark);
+    gap: 0.75rem;
+  }
 }
 
-/* ===== MODAL STYLES ===== */
+/* ===== MODAL (booking) ===== */
 .cd-modal-overlay {
   position: fixed;
   inset: 0;
@@ -494,7 +566,7 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  padding: 20px;
+  padding: 1rem;
 }
 
 .cd-modal-container {
@@ -521,8 +593,8 @@
 
 .cd-modal-close {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 1rem;
+  right: 1rem;
   background: none;
   border: none;
   font-size: 1.2rem;
@@ -531,27 +603,30 @@
   transition: var(--cd-transition);
 }
 
-.cd-modal-close:hover {
-  color: var(--cd-primary);
+@media (hover: hover) and (min-width: 1025px) {
+  .cd-modal-close:hover {
+    color: var(--cd-primary);
+  }
 }
 
 .cd-modal-header {
-  padding: 24px 24px 0;
+  padding: 1.5rem 1.5rem 0;
 }
 
 .cd-modal-steps {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
-  margin-bottom: 20px;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .cd-step {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 0.3rem;
 }
 
 .cd-step-number {
@@ -591,15 +666,15 @@
   font-weight: 700;
   color: var(--cd-primary);
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
 
 .cd-booking-form {
-  padding: 24px;
+  padding: 1.5rem;
 }
 
 .cd-form-group {
-  margin-bottom: 18px;
+  margin-bottom: 1.2rem;
 }
 
 .cd-form-group label {
@@ -607,13 +682,13 @@
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--cd-primary);
-  margin-bottom: 6px;
+  margin-bottom: 0.4rem;
 }
 
 .cd-form-group input,
 .cd-form-group select {
   width: 100%;
-  padding: 10px 14px;
+  padding: 0.7rem 0.9rem;
   border: 2px solid var(--cd-gray-200);
   border-radius: var(--cd-radius-md);
   font-size: 0.9rem;
@@ -630,15 +705,17 @@
 .cd-booking-summary {
   background: var(--cd-gray-100);
   border-radius: var(--cd-radius-md);
-  padding: 16px;
-  margin-bottom: 20px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .cd-summary-item {
   display: flex;
   justify-content: space-between;
-  padding: 8px 0;
+  padding: 0.5rem 0;
   border-bottom: 1px solid var(--cd-gray-200);
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .cd-summary-item:last-child {
@@ -648,8 +725,8 @@
 .cd-summary-item.cd-total {
   font-weight: 700;
   color: var(--cd-primary);
-  padding-top: 12px;
-  margin-top: 4px;
+  padding-top: 0.75rem;
+  margin-top: 0.25rem;
   border-top: 2px solid var(--cd-gray-200);
   border-bottom: none;
 }
@@ -668,13 +745,13 @@
 
 .cd-modal-buttons {
   display: flex;
-  gap: 12px;
-  margin-top: 20px;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
 }
 
 .cd-back-btn {
   flex: 1;
-  padding: 12px;
+  padding: 0.75rem;
   background: var(--cd-gray-200);
   border: none;
   border-radius: var(--cd-radius-md);
@@ -683,13 +760,15 @@
   transition: var(--cd-transition);
 }
 
-.cd-back-btn:hover {
-  background: var(--cd-gray-300);
+@media (hover: hover) and (min-width: 1025px) {
+  .cd-back-btn:hover {
+    background: var(--cd-gray-300);
+  }
 }
 
 .cd-submit-btn {
   flex: 2;
-  padding: 12px;
+  padding: 0.75rem;
   background: var(--cd-primary);
   color: var(--cd-white);
   border: none;
@@ -699,34 +778,49 @@
   transition: var(--cd-transition);
 }
 
-.cd-submit-btn:hover {
-  background: var(--cd-primary-dark);
+@media (hover: hover) and (min-width: 1025px) {
+  .cd-submit-btn:hover {
+    background: var(--cd-primary-dark);
+  }
+}
+
+.cd-booking-error {
+  background: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+  padding: 0.75rem 1rem;
+  border-radius: var(--cd-radius-md);
+  margin: 0 1.5rem 1rem;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(220, 53, 69, 0.3);
 }
 
 .cd-success-message {
   text-align: center;
-  padding: 48px 32px;
+  padding: 3rem 2rem;
 }
 
 .cd-success-message i {
   font-size: 4rem;
   color: #4CAF50;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
 
 .cd-success-message h3 {
   font-size: 1.5rem;
   color: var(--cd-primary);
-  margin-bottom: 10px;
+  margin-bottom: 0.5rem;
 }
 
 .cd-success-message p {
   color: var(--cd-gray-500);
-  margin-bottom: 30px;
+  margin-bottom: 1.5rem;
 }
 
 .cd-close-success-btn {
-  padding: 12px 30px;
+  padding: 0.75rem 2rem;
   background: var(--cd-secondary);
   border: none;
   border-radius: var(--cd-radius-md);
@@ -735,100 +829,10 @@
   transition: var(--cd-transition);
 }
 
-.cd-close-success-btn:hover {
-  background: var(--cd-secondary-dark);
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 1024px) {
-  .cd-grid {
-    grid-template-columns: 1fr;
+@media (hover: hover) and (min-width: 1025px) {
+  .cd-close-success-btn:hover {
+    background: var(--cd-secondary-dark);
   }
-  
-  .cd-price-card {
-    position: static;
-  }
-}
-
-@media (max-width: 768px) {
-  .cd-hero-section {
-    height: 40vh;
-    min-height: 350px;
-  }
-  
-  .cd-main-wrapper {
-    padding: 40px 20px;
-  }
-  
-  .cd-benefits-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .cd-schedule-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  
-  .cd-trainer-info {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .cd-modal-steps {
-    gap: 10px;
-  }
-  
-  .cd-step-line {
-    width: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .cd-hero-title {
-    font-size: 1.8rem;
-  }
-  
-  .cd-hero-tags {
-    gap: 8px;
-  }
-  
-  .cd-tag {
-    font-size: 0.7rem;
-    padding: 4px 10px;
-  }
-  
-  .cd-section-title {
-    font-size: 1.1rem;
-  }
-  
-  .cd-price-amount {
-    font-size: 2.5rem;
-  }
-  
-  .cd-modal-container {
-    max-width: 95%;
-  }
-  
-  .cd-modal-buttons {
-    flex-direction: column;
-  }
-}
-
-
-/* Add to your ClassDetailsPage.css */
-.cd-booking-error {
-  background: rgba(220, 53, 69, 0.1);
-  color: #dc3545;
-  padding: 12px 16px;
-  border-radius: var(--cd-radius-md);
-  margin: 0 24px 20px;
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid rgba(220, 53, 69, 0.3);
 }
 
 .cd-loading-spinner {
@@ -842,12 +846,98 @@
 }
 
 @keyframes cd-spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
 .cd-submit-btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+}
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+@media (max-width: 1024px) {
+  .cd-grid {
+    grid-template-columns: 1fr;
+  }
+  .cd-price-card {
+    position: static;
+  }
+  .cd-schedule-item {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cd-hero-section {
+    height: 40vh;
+    min-height: 350px;
+  }
+  .cd-main-wrapper {
+    padding: 2rem 1rem;
+  }
+  .cd-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+  .cd-schedule-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .cd-trainer-info {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .cd-step-line {
+    width: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cd-hero-title {
+    font-size: 1.8rem;
+  }
+  .cd-hero-tags {
+    gap: 0.5rem;
+  }
+  .cd-tag {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.75rem;
+  }
+  .cd-main-image {
+    height: 250px;
+  }
+  .cd-section-title {
+    font-size: 1.1rem;
+  }
+  .cd-price-amount {
+    font-size: 2.5rem;
+  }
+  .cd-modal-container {
+    max-width: 95%;
+  }
+  .cd-modal-buttons {
+    flex-direction: column;
+  }
+  .cd-modal-steps {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cd-hero-section {
+    height: 50vh;
+  }
+  .cd-price-card {
+    padding: 1.2rem;
+  }
+  .cd-thumbnail-grid {
+    gap: 0.3rem;
+  }
+  .cd-info-card,
+  .cd-schedule-card,
+  .cd-trainer-card {
+    padding: 1.2rem;
+  }
 }

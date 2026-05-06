@@ -1,61 +1,28 @@
 import { Link } from "react-router-dom";
 import "./HomePage.css";
-import { useState } from "react";
-import { useEffect, useRef } from "react";
-import Swiper from "swiper";
-import { Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
+import { useEffect } from "react";
 
 function HomePage() {
-  const [billingPeriod, setBillingPeriod] = useState('yearly');
-  const swiperRef = useRef(null);
-  const swiperInstance = useRef(null);
-
-  const pricingData = {
-    starter: {
-      yearly: { price: 4999, text: 'Billed annually' },
-      monthly: { price: 499, text: 'Billed monthly' }
-    },
-    premium: {
-      yearly: { price: 7999, text: 'Billed annually' },
-      monthly: { price: 799, text: 'Billed monthly' }
-    },
-    elite: {
-      yearly: { price: 10999, text: 'Billed annually' },
-      monthly: { price: 999, text: 'Billed monthly' }
-    }
-  };
-
+  // Scroll reveal animations
   useEffect(() => {
-    const initSwiper = () => {
-      if (window.innerWidth <= 768) {
-        if (!swiperInstance.current) {
-          swiperInstance.current = new Swiper(swiperRef.current, {
-            modules: [Pagination],
-            slidesPerView: 1.15,
-            centeredSlides: true,
-            spaceBetween: 16,
-            pagination: { el: ".home-swiper-pagination", clickable: true },
-            breakpoints: {
-              480: { slidesPerView: 1.3, spaceBetween: 20 },
-            },
-          });
-        }
-      } else {
-        if (swiperInstance.current) {
-          swiperInstance.current.destroy(true, true);
-          swiperInstance.current = null;
-        }
-      }
-    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.20, rootMargin: '0px 0px -50px 0px' }
+    );
 
-    initSwiper();
-    window.addEventListener("resize", initSwiper);
-    return () => {
-      window.removeEventListener("resize", initSwiper);
-      swiperInstance.current?.destroy(true, true);
-    };
+    const elements = document.querySelectorAll(
+      '.home-feature-card, .home-class-card, .home-trainer-card, .view-all-card'
+    );
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -110,7 +77,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Classes Section */}
+      {/* Classes Section – Redesigned Responsive Grid */}
       <section className="home-classes">
         <div className="home-container">
           <div className="home-section-header">
@@ -153,7 +120,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Trainers Section - Updated with 4 cards */}
+      {/* Trainers Section */}
       <section className="home-trainers">
         <div className="home-container">
           <div className="home-section-header">
@@ -161,7 +128,7 @@ function HomePage() {
             <p className="home-section-subtitle">Meet our team of certified fitness professionals</p>
           </div>
           <div className="home-trainers-grid">
-            {/* Trainer 1 - Olivia Parker */}
+            {/* Trainer 1 */}
             <div className="home-trainer-card">
               <div className="home-trainer-image">
                 <img src="/olivia.jpg" alt="Olivia Parker" />
@@ -174,8 +141,7 @@ function HomePage() {
               <h3>Olivia Parker</h3>
               <p>Yoga Trainer</p>
             </div>
-
-            {/* Trainer 2 - Jackson Mitchell */}
+            {/* Trainer 2 */}
             <div className="home-trainer-card">
               <div className="home-trainer-image">
                 <img src="/jackson.jpg" alt="Jackson Mitchell" />
@@ -188,8 +154,7 @@ function HomePage() {
               <h3>Jackson Mitchell</h3>
               <p>Gym Trainer</p>
             </div>
-
-            {/* Trainer 3 - Ethan Reynolds */}
+            {/* Trainer 3 */}
             <div className="home-trainer-card">
               <div className="home-trainer-image">
                 <img src="/ethan.jpg" alt="Ethan Reynolds" />
@@ -202,8 +167,7 @@ function HomePage() {
               <h3>Ethan Reynolds</h3>
               <p>Gym Trainer</p>
             </div>
-
-            {/* Trainer 4 - View All Trainers Card */}
+            {/* View All Card */}
             <Link to="/Trainers" className="home-trainer-card-link">
               <div className="home-trainer-card view-all-card">
                 <div className="view-all-icon">

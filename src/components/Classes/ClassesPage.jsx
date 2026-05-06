@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./ClassesPage.css";
 
@@ -208,6 +208,32 @@ function ClassesPage() {
     return matchesCategory && matchesSearch;
   });
 
+  // Scroll reveal observer – re‑attaches when filtered classes change
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    const elements = document.querySelectorAll('.trainee-stat-card, .trainee-class-card');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [filteredClasses.length]); // 👈 runs every time the number of filtered classes changes
+
+  // Clear search when category changes
+  const handleCategoryChange = (categoryId) => {
+    setSelectedCategory(categoryId);
+    setSearchTerm("");
+  };
+
   return (
     <div className="trainee-page-wrapper">
       {/* Hero Section */}
@@ -268,6 +294,15 @@ function ClassesPage() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
+            {searchTerm && (
+              <button 
+                className="trainee-clear-search"
+                onClick={() => setSearchTerm("")}
+                aria-label="Clear search"
+              >
+                <i className="fas fa-times"></i>
+              </button>
+            )}
           </div>
           
           <div className="trainee-categories-container">
@@ -275,7 +310,7 @@ function ClassesPage() {
               <button
                 key={cat.id}
                 className={`trainee-category-btn ${selectedCategory === cat.id ? "trainee-active" : ""}`}
-                onClick={() => setSelectedCategory(cat.id)}
+                onClick={() => handleCategoryChange(cat.id)}
               >
                 <i className={cat.icon}></i>
                 {cat.name}
@@ -374,7 +409,10 @@ function ClassesPage() {
             <i className="fas fa-search trainee-empty-icon"></i>
             <h3 className="trainee-empty-title">No classes found</h3>
             <p className="trainee-empty-message">Try adjusting your search or filter criteria</p>
-            <button className="trainee-clear-btn" onClick={() => { setSearchTerm(""); setSelectedCategory("all"); }}>
+            <button 
+              className="trainee-clear-btn" 
+              onClick={() => { setSearchTerm(""); setSelectedCategory("all"); }}
+            >
               Clear Filters
             </button>
           </div>

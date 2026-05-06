@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom"; // add useLocation
 import { useAuth } from "../../context/AuthContext";
 import "./signin.css";
 import axios from "axios";
@@ -15,7 +15,11 @@ function SignInPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const location = useLocation(); // get location state
   const { login } = useAuth();
+
+  // Get the redirect path from state (or default to "/")
+  const from = location.state?.from || "/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +34,7 @@ function SignInPage() {
 
       if (res.data.success) {
         login(res.data.user, res.data.token);
-        navigate("/");
+        navigate(from, { replace: true }); // redirect back to the original page
       }
     } catch (error) {
       setError(error.response?.data?.message || "Login failed. Please try again.");

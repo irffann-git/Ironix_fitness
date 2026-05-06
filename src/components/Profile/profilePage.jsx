@@ -267,7 +267,7 @@ function Profile() {
 
           {!editing && (
             <>
-              <div className="profile-membership-card">
+              {/* <div className="profile-membership-card">
                 <h3 className="profile-membership-title">
                   <i className="fas fa-trophy" style={{ marginRight: "8px" }}></i> Membership
                 </h3>
@@ -276,7 +276,7 @@ function Profile() {
                   <i className="fas fa-calendar-alt" style={{ marginRight: "6px" }}></i>
                   Member since {new Date(user.joinDate).toLocaleDateString()}
                 </p>
-              </div>
+              </div> */}
 
               {/* My Bookings Section */}
               <div className="profile-bookings-section">

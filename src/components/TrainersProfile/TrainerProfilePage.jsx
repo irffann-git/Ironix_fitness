@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { trainerProfileData } from "../../Data/TrainerProfileData";
 import "./TrainerProfilePage.css";
@@ -22,6 +22,24 @@ function TrainerProfilePage() {
       </div>
     );
   }
+
+
+  useEffect(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
+  );
+  const elements = document.querySelectorAll('.tp-left-column, .tp-right-column');
+  elements.forEach(el => observer.observe(el));
+  return () => observer.disconnect();
+}, []);
 
   return (
     <div className="tp-profile-wrapper">

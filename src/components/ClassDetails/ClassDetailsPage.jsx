@@ -74,17 +74,16 @@ function ClassDetailsPage() {
     setBookingError("");
   };
 
-  const handleBookNowClick = () => {
-    if (!isLoggedIn) {
-      // Show a modal or redirect to login
-      const confirmLogin = window.confirm("Please login to book a class. Click OK to go to login page.");
-      if (confirmLogin) {
-        navigate("/signin");
-      }
-    } else {
-      setShowBookingModal(true);
+const handleBookNowClick = () => {
+  if (!isLoggedIn) {
+    const confirmLogin = window.confirm("Please login to book a class. Click OK to go to login page.");
+    if (confirmLogin) {
+      navigate("/signin", { state: { from: `/class-details/${id}` } });
     }
-  };
+  } else {
+    setShowBookingModal(true);
+  }
+};
 
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
@@ -199,6 +198,29 @@ function ClassDetailsPage() {
     return colors[intensity] || "#884919";
   };
 
+
+  // Scroll reveal animations for content cards
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.20, rootMargin: '0px 0px -50px 0px' }
+  );
+
+  const elements = document.querySelectorAll(
+    '.cd-gallery, .cd-info-card, .cd-price-card, .cd-schedule-card, .cd-trainer-card'
+  );
+  elements.forEach((el) => observer.observe(el));
+
+  return () => observer.disconnect();
+}, []);
+
   return (
     <div className="cd-page-wrapper">
       {/* Hero Section */}
@@ -301,12 +323,6 @@ function ClassDetailsPage() {
                   <i className="fas fa-calendar-check"></i> Book This Class
                 </button>
                 
-                {/* Show login message for non-logged in users */}
-                {!isLoggedIn && (
-                  <p className="cd-login-message">
-                    <i className="fas fa-lock"></i> Please <Link to="/signin">login</Link> or <Link to="/signup">signup</Link> to book this class
-                  </p>
-                )}
               </div>
 
               {/* Schedule Card */}
