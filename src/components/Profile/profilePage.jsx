@@ -192,11 +192,14 @@ function Profile() {
       <div className="profile-card-container">
         <div className="profile-banner-section">
           <div className="profile-avatar-wrapper" onClick={handleImageClick}>
-            <img src={
-    user.profileImage?.startsWith("http")
-      ? user.profileImage
-      : `${API}${user.profileImage}`
-  } alt="profile" />
+            <img 
+  src={
+    user.profileImage?.startsWith("http") ? user.profileImage :
+    user.profileImage?.startsWith("data:image") ? user.profileImage :
+    `${API}${user.profileImage}`
+  } 
+  alt="profile" 
+/>
             {editing && (
               <div className="profile-avatar-overlay">
                 <i className="fas fa-camera"></i>
